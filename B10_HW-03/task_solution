@@ -1,5 +1,5 @@
 https://dropmefiles.com/BkR3g   --   ubuntu_trusty64.box (vagrant box)
-https://github.com/freezzze/Skiilfactory/tree/main/B10.5   --   мой Git
+https://github.com/freezzze/Skiilfactory/tree/main/B10_HW-03   --   мой Git
 
 Самая большая проблема это блокировка забугорных ресурсов (хашикорп и прочие).
 PS ```sh wget https://vagrantcloud.com/ubuntu/boxes/trusty64/versions/current/providers/virtualbox.box``` -- так можно вытянуть образ для vagrant.
