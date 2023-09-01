@@ -1,0 +1,20 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/trusty64"
+  config.vm.synced_folder "/mnt/c/Users/freezzze/sf_practice/6", "/home/vagrant"
+#  config.vm.synced_folder "/home/freezzze/sf_practice/smile.jpg", "/home/vagrant"
+
+# Install Postgresql-8.4 on VirtualBox via vagrant
+
+   config.vm.provision "shell", inline: <<-SHELL
+# Update packages
+  sudo apt update
+# Install packages
+  sudo apt install -y python3 python3-pip python3-dev libpq-dev
+# Install other packages
+  python3 -m pip install psycopg2 django
+# Copy file host to VM
+#  cp /mnt/c/Users/freezzze/sf_practice/smile.jpg /home/vagrant/
+SHELL
+end
