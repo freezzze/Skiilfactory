@@ -1,0 +1,13 @@
+{
+    "name": "swiftmailer/composer",
+    "type": "project",
+    "require": {
+        "symfony/swiftmailer-bundle": "^3.5"
+    },
+    "authors": [
+        {
+            "name": "freezzze",
+            "email": "rada611@gmail.com"
+        }
+    ]
+}

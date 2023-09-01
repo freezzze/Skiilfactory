@@ -1,0 +1,25 @@
+---
+- name: Install Dnsmasq
+  package:
+    name: dnsmasq
+    state: 'latest'
+
+- name: Set configuration file
+  template:
+    src: etc/dnsmasq.conf.j2
+    dest: /etc/dnsmasq.conf
+    validate: 'dnsmasq --test --conf-file=%s'
+  notify: restart dnsmasq
+
+- name: Set additional hosts file
+  template:
+    src: etc/hosts.dnsmasq.j2
+    dest: "{{ dnsmasq_addn_hosts_file }}"
+  when: dnsmasq_addn_hosts is defined
+  notify: restart dnsmasq
+
+- name: Make sure Dnsmasq is running
+  service:
+    name: dnsmasq
+    state: started
+    enabled: yes

@@ -1,0 +1,30 @@
+---
+- name: Install MySQL database server
+  hosts: all
+  become: yes
+  gather_facts: yes
+  tasks:
+        - name: Update the software package repository
+          apt:
+                update_cache: yes
+
+        - name: Install MySQL
+          package:
+                name: "{{ item }}"
+                state: latest
+
+          with_items:
+              - mysql-server
+              - mysql-client
+
+        - name: Restart service mysql, in all cases
+          ansible.builtin.service:
+                name: mysql
+                state: restarted
+
+        - name: "Populate service facts"
+          service_facts:
+
+        - name: "See the service <mysql> facts as they are"
+          debug:
+            msg: "{{ansible_facts.services['mysql.service'].state}}"

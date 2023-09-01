@@ -1,0 +1,16 @@
+---
+# tasks file for php
+- name: Install PHP-FPM
+  apt: 
+      name:  php-fpm
+      update_cache: yes
+      state: latest
+
+- name: change php-fpm to listen on socket
+  ini_file: 
+    dest: /etc/php/7.2/fpm/pool.d/www.conf
+    section: www
+    option: listen
+    value: 127.0.0.1:9000
+  notify:
+    - restart php-fpm

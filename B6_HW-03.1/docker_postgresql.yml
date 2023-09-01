@@ -1,0 +1,39 @@
+---
+- name: install Docker
+  hosts: app
+  become: true
+  tasks:
+    - name: Install Docker on RedHat Family
+      yum:
+        name=docker
+        state=latest
+      when:
+        ansible_os_family == "RedHat"
+      notify:
+        - docker systemd
+
+    - name: Install Docker on Debian Family
+      apt:
+        name=docker.io
+        state=latest
+      when:
+        ansible_os_family == "Debian"
+      notify:
+        - docker status
+
+- name: install Postgresql
+  hosts: database
+  become: true
+  tasks:
+    - name: Install Postgresql
+      apt:
+        name=postgresql
+        state=latest
+
+    - name: check services
+      service_facts:
+
+    - name: Status installed Postgresql
+      debug:
+        msg: "postgresql is {{ ansible_facts.services['postgresql.service']['status'] }}"
+      when: "'postgresql.service' in ansible_facts.services"

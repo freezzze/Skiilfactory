@@ -1,0 +1,1 @@
+docker run --name nginx_test -d -v ~/nginxlogs:/var/log/nginx -p 9090:80 -p 9999:8080 nginx

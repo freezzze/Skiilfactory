@@ -1,0 +1,5 @@
+---
+# vars file for install_nginx_php-fpm
+http_host: "warframe"
+http_conf: "warframe.conf"
+http_port: "80"

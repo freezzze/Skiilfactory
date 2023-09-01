@@ -1,0 +1,19 @@
+---
+# tasks file for http
+- name: Install Nginx
+  package:
+    name: nginx
+    state: 'latest'
+    update_cache: yes
+
+- name: Start Nginx and Enable it on the every boot
+  service: 
+      name: nginx
+      state: started
+      enabled: yes
+
+- name: Sets Nginx conf file
+  template:
+        src: "files/default.j2"
+        dest: "/etc/nginx/sites-available/default"
+    

@@ -1,0 +1,7 @@
+---
+- hosts: servs 
+  become:
+    true
+  roles:
+    - http
+    - php

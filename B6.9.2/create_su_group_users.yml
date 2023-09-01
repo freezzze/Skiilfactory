@@ -1,0 +1,28 @@
+---
+- name: Create Users & Groups
+  hosts: servs
+  become: yes
+  gather_facts: false
+  tasks:
+    - name: Create group
+      group:
+        name: superusers
+        state: present
+
+    - name: Create Users
+      user:
+        name: "{{ item }}"
+        shell: /bin/bash
+        state: present
+        groups: superusers,sudo
+      loop:
+        - user2
+        - user3
+
+    - name: Validate the sudoers file before saving
+      lineinfile:
+        path: /etc/sudoers
+        state: present
+        regexp: '^%ADMIN ALL='
+        line: '%ADMIN ALL=(ALL) NOPASSWD: ALL'
+        validate: /usr/sbin/visudo -cf %s

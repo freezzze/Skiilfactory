@@ -1,0 +1,13 @@
+---
+# tasks file for users
+- name: Create Users
+  user:
+        name: user1
+        shell: /bin/bash
+        state: present
+        groups: sudo
+- name: Set authorized key for user user1 copying it from current user
+  authorized_key:
+        user: user1
+        state: present
+        key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"

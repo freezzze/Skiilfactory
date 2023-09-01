@@ -1,0 +1,7 @@
+---
+- hosts: nginx
+  become:
+    true
+  roles:
+    - users
+    - http

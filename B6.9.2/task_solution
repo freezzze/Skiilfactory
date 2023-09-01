@@ -1,0 +1,28 @@
+1. Роль 'dnsmasq', плейбук, применяющий эту роль к инфраструктуре 'dnsmasq.yml'
+2. 'create_su_group_users.yml'
+3. Роль 'install_nginx_php-fpm', плейбук, применяющий эту роль к инфраструктуре 'install_nginx_php-fpm.yml'
+4. Достаточно строчку в шаблоне nginx.conf.j2 поменять c
+ 'root /var/www/html;'
+на
+'/opt/nginx/ansible'
+
+Получится такое:
+'server {
+        listen {{ http_port }};
+        root /opt/nginx/ansible;
+        index index.php index.html index.htm;
+        server_name {{ http_host }};
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+
+        location ~ \.php$ {
+                include snippets/fastcgi-php.conf;
+                fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
+        }
+
+        location ~ /\.ht {
+                deny all;
+        }
+}'

@@ -1,0 +1,15 @@
+5. Сценарий образа лежит называется Dockerfile, скрин pic01.png, размер:
+
+REPOSITORY   TAG           IMAGE ID       CREATED          SIZE
+memes        latest        399205c2cbbc   41 seconds ago   729MB
+
+================================================================
+Можно оптимизировать код вот так:
+
+FROM python:3
+RUN pip install flask psycopg2 configparser
+WORKDIR /srv/app
+COPY srv .
+CMD ["python", "web.py"]
+
+Код станет меньше, но размер станет 1.01 Гб.

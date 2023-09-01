@@ -1,0 +1,13 @@
+[app]
+vm2 ansible_ssh_user=ubuntu
+vm3 ansible_ssh_user=cloud-user
+
+[database]
+vm1
+
+[database:vars]
+pg_ver=14
+data=/var/lib/postgresql/{{ pg_ver }}/main
+
+[web]
+vm1

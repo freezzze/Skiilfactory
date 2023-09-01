@@ -1,0 +1,40 @@
+---
+# tasks file for install_nginx_php-fpm
+- name: Install Nginx
+  apt: 
+      name:  "{{ item }}"
+      update_cache: yes
+      state: latest
+  loop:
+      - nginx
+      - php-fpm
+
+
+- name: Start Nginx and Enable it on the every boot
+  service: 
+      name: nginx
+      state: started
+      enabled: yes
+  
+- name: Sets Nginx conf file
+  template:
+        src: "files/nginx.conf.j2"
+        dest: "/etc/nginx/sites-available/{{ http_conf }}"
+
+- name: Enables new site
+  file:
+        src: "/etc/nginx/sites-available/{{ http_conf }}"
+        dest: "/etc/nginx/sites-enabled/{{ http_conf }}"
+        state: link
+  notify: Reload Nginx
+    
+- name: Removes "default" site
+  file:
+        path: "/etc/nginx/sites-enabled/default"
+        state: absent
+  notify: Reload Nginx
+
+- name: Sets Up PHP Info Page
+  template:
+       src: "files/info.php.j2"
+       dest: "/var/www/html/info.php"

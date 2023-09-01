@@ -1,0 +1,26 @@
+# создаём роль vsftpd
+ansible-galaxy init vsftpd
+
+# содержимое playbook применяющего роль к инфраструктуре
+#./vsftpd.yml
+---
+- hosts: servs
+  gather_facts: no
+  become: yes
+  roles:
+          - vsftpd
+
+
+# Описание задачи vsftpd/tasks/main.yml
+# tasks file for vsftpd
+---
+- name: Install vsftpd
+  apt:
+   name:
+   - vsftpd
+   state: present
+- name: Populate service facts
+  service_facts:
+- name: See the service <vsftp> facts as they are
+  debug:
+    msg: "{{ansible_facts.services['vsftpd.service'].state}}"

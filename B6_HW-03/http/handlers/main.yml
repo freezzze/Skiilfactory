@@ -1,0 +1,6 @@
+---
+# handlers file for http
+- name: Reload Nginx
+  ansible.builtin.service:
+      name: nginx
+      state: restarted
